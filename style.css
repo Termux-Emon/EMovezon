@@ -14,13 +14,6 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 2em;
-  animation: fadeout 2s ease forwards;
-}
-
-@keyframes fadeout {
-  0% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; display: none; }
 }
 
 .site-title {
@@ -43,6 +36,7 @@ body {
   overflow: hidden;
   text-align: center;
   padding-bottom: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .card img {
@@ -54,12 +48,6 @@ body {
 .card h3 {
   margin: 10px 0 5px;
   font-size: 1.1em;
-}
-
-.card p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #aaa;
 }
 
 .card a {
