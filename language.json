@@ -1,25 +1,17 @@
 {
-  "countries": [
-    "Bangladesh",
-    "Malaysia",
-    "USA",
-    "Korea",
-    "China",
-    "India",
-    "Japan",
-    "Pakistan",
-    "UK",
-    "France",
-    "Germany",
-    "Russia",
-    "Indonesia",
-    "Thailand",
-    "Nepal",
-    "Philippines",
-    "Vietnam",
-    "Italy",
-    "Spain",
-    "Canada",
-    "18+"
+  "languages": [
+    "Bangla",
+    "Hindi",
+    "English",
+    "Malay",
+    "Arabic",
+    "Chinese",
+    "Korean",
+    "Japanese",
+    "Tamil",
+    "Telugu",
+    "French",
+    "Spanish",
+    "Urdu"
   ]
 }
