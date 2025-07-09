@@ -1,7 +1,25 @@
 {
-  "Bangladesh",
-  "Malaysia",
-  "USA",
-  "Korean",
-  "China"
+  "countries": [
+    "Bangladesh",
+    "Malaysia",
+    "USA",
+    "Korea",
+    "China",
+    "India",
+    "Japan",
+    "Pakistan",
+    "UK",
+    "France",
+    "Germany",
+    "Russia",
+    "Indonesia",
+    "Thailand",
+    "Nepal",
+    "Philippines",
+    "Vietnam",
+    "Italy",
+    "Spain",
+    "Canada",
+    "18+"
+  ]
 }
