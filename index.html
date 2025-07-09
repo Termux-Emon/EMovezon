@@ -2,21 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎬 EMovieZone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 EMovieZone</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://i.ibb.co/fMsyJtG/emovie-logo.png">
 </head>
 <body>
+  <div id="preloader">🎬 Loading EMovieZone...</div>
 
-<div id="preloader">
-  <h1>🎬 Loading EMovieZone...</h1>
-</div>
+  <div id="top-bar">
+    <div id="logo">🍿 <span>EMovieZone</span></div>
+    <select id="langSelect">
+      <option value="en">English</option>
+      <option value="bn">বাংলা</option>
+      <option value="ms">Malaysia</option>
+      <option value="ar">العربية</option>
+    </select>
+  </div>
 
-<div id="movie-container" style="display:none;">
-  <h1 class="site-title">🎥 EMovieZone</h1>
-  <div id="movies" class="grid"></div>
-</div>
+  <div id="movie-container" style="display:none;">
+    <div class="site-title" data-i18n="title">🎥 Latest Movies</div>
+    <div id="movies" class="grid"></div>
+    <div class="pagination">
+      <button id="prevPage">⬅️</button>
+      <span id="pageNum">1</span>
+      <button id="nextPage">➡️</button>
+    </div>
+  </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
