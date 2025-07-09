@@ -1,5 +1,6 @@
 {
   "languages": [
+    "All",
     "Bangla",
     "Hindi",
     "English",
@@ -12,6 +13,7 @@
     "Telugu",
     "French",
     "Spanish",
-    "Urdu"
+    "Urdu",
+    "18+"
   ]
 }
