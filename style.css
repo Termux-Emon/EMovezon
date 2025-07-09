@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0d0d0d;
   color: #fff;
 }
 
@@ -18,50 +18,59 @@ body {
 
 .site-title {
   text-align: center;
-  margin-top: 20px;
-  font-size: 2em;
-  color: #00ffcc;
+  margin-top: 30px;
+  font-size: 2.5em;
+  color: #00ffc8;
+  text-shadow: 2px 2px 10px #00ffc833;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 30px;
 }
 
 .card {
-  background: #222;
-  border-radius: 10px;
+  background: #1a1a1a;
+  border-radius: 15px;
   overflow: hidden;
   text-align: center;
-  padding-bottom: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #00ffc877;
 }
 
 .card img {
   width: 100%;
-  height: 300px;
+  height: 360px;
   object-fit: cover;
+  border-bottom: 3px solid #00ffc8;
 }
 
 .card h3 {
-  margin: 10px 0 5px;
-  font-size: 1.1em;
+  margin: 15px 10px 5px;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .card a {
-  margin-top: 10px;
+  margin-top: 12px;
   display: inline-block;
-  background: #00ffcc;
+  background: linear-gradient(135deg, #00ffcc, #0078ff);
   color: #000;
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 10px 18px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .card a:hover {
-  background: #00c9aa;
+  background: linear-gradient(135deg, #00ccaa, #0055cc);
 }
