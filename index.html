@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎬 EMovieZon</title>
+  <title>Loading...</title>
   <link rel="icon" id="favicon" href="">
   <style>
     body {
@@ -27,12 +27,19 @@
       background-color: #f0f0f0;
     }
     #logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-size: 1.4rem;
       font-weight: bold;
+    }
+    #logo img {
+      height: 30px;
     }
     .controls {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
     select, input {
       padding: 5px;
@@ -82,7 +89,10 @@
 </head>
 <body>
   <div id="top-bar">
-    <div id="logo">🍿 <span id="siteTitle">EMovieZon</span></div>
+    <div id="logo">
+      <img id="siteLogo" src="" alt="Logo">
+      <span id="siteTitle"></span>
+    </div>
     <div class="controls">
       <button id="themeToggle">🌞 Light Mode</button>
       <input type="text" id="searchInput" placeholder="🔍 Search Movie...">
@@ -101,6 +111,7 @@
     const countrySelect = document.getElementById("countrySelect");
     const searchInput = document.getElementById("searchInput");
     const siteTitle = document.getElementById("siteTitle");
+    const siteLogo = document.getElementById("siteLogo");
     const creatorLink = document.getElementById("creator");
     const favicon = document.getElementById("favicon");
 
@@ -112,17 +123,19 @@
       themeToggle.innerText = document.body.classList.contains("light") ? "🌙 Dark Mode" : "🌞 Light Mode";
     });
 
-    // Fetch Site Info
-    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon/refs/heads/main/SiteName.json")
+    // Load Site Info
+    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon-Link/main/SiteName.json")
       .then(res => res.json())
-      .then(site => {
-        siteTitle.textContent = site.website_name || "EMovieZon";
-        creatorLink.href = site.facebook || "#";
-        favicon.href = site.logo || "";
+      .then(data => {
+        siteTitle.textContent = data.website_name || "EMovieZon";
+        document.title = data.website_name || "EMovieZon";
+        siteLogo.src = data.logo || "";
+        favicon.href = data.logo || "";
+        creatorLink.href = data.facebook || "#";
       });
 
-    // Fetch Languages/Countries
-    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon/refs/heads/main/language.json")
+    // Load Language/Country
+    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon-Link/main/language.json")
       .then(res => res.json())
       .then(data => {
         langSelect.innerHTML = '<option value="all">🌐 All Languages</option>';
@@ -144,7 +157,7 @@
     countrySelect.addEventListener("change", applyFilters);
     searchInput.addEventListener("input", applyFilters);
 
-    // Fetch Movies
+    // Load Movies
     fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon-Link/main/movies.json")
       .then(res => res.json())
       .then(data => {
