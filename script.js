@@ -6,14 +6,13 @@ window.addEventListener('load', () => {
     document.getElementById("preloader").style.display = "none";
     document.getElementById("movie-container").style.display = "block";
     loadMovies();
-  }, 2000);
+  }, 1500);
 });
 
 async function loadMovies() {
   try {
     const res = await fetch(apiUrl);
     const files = await res.json();
-
     const jsonFiles = files.filter(file => file.name.endsWith('.json'));
     const movieDiv = document.getElementById('movies');
 
@@ -23,10 +22,20 @@ async function loadMovies() {
 
       const card = document.createElement('div');
       card.className = 'card';
+
+      let downloadLinks = '';
+      if (typeof movie.download === "object" && !Array.isArray(movie.download)) {
+        for (const [quality, link] of Object.entries(movie.download)) {
+          downloadLinks += `<a href="${link}" download>${quality}p</a> `;
+        }
+      } else {
+        downloadLinks = `<a href="${movie.download}" download>Download</a>`;
+      }
+
       card.innerHTML = `
         <img src="${movie.poster}" alt="${movie.title}">
         <h3>${movie.title}</h3>
-        <a href="${movie.download}" download>Download Now</a>
+        <div class="btn-group">${downloadLinks}</div>
       `;
       movieDiv.appendChild(card);
     }
