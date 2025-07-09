@@ -1,8 +1,9 @@
 {
-  "website_name": "EMovieZon 🎬",
+  "website_name": "🎬 EMovieZon",
   "logo": "https://i.ibb.co/0jDhWqHN/20250710-005842.png",
   "facebook": "https://facebook.com/EMon.BHai.FACEBOOK",
-  "note": "🔥 Watch Daily Updated Movies!",
-  "active": true,
-  "update_note": "🔧 Updating site... Please wait!"
+  "whatsapp": "https://wa.me/8801000000000",
+  "notes": "New version live! Bug fixed and UI improved!",
+  "website_status": "on",
+  "update_note": "We are updating... Please wait."
 }
