@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EMovezon</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --text: #ffffff;
+      --card: #222;
+      --accent: #444;
+    }
+    body.light {
+      --bg: #f0f0f0;
+      --text: #000;
+      --card: #fff;
+      --accent: #ddd;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: var(--card);
+    }
+    header img { height: 40px; }
+    header h2 { margin: 0; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 15px 20px;
+      background: var(--card);
+    }
+    .controls input, .controls select, .controls button {
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .controls button {
+      background: var(--accent);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .movie-card {
+      background-color: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .movie-card:hover { transform: scale(1.03); }
+    .movie-card img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+    }
+    .movie-info {
+      padding: 10px;
+      flex-grow: 1;
+    }
+    .movie-info h3 {
+      margin: 0 0 10px;
+      font-size: 1em;
+    }
+    .quality-links, .language {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 5px 0;
+    }
+    .quality-links a, .language span {
+      background: var(--accent);
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .share-box button, .watch-now {
+      margin-top: 8px;
+      background: #00b894;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .watch-now {
+      background: #0984e3;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img id="site-logo" src="" alt="Logo">
+      <h2 id="site-name">EMovezon</h2>
+    </div>
+    <button onclick="toggleMode()">🌓</button>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="🔍 Search Movie..." oninput="filterMovies()">
+    <select id="langFilter" onchange="filterMovies()">
+      <option value="">🌐 All Languages</option>
+    </select>
+  </div>
+
+  <div class="movie-grid" id="movie-list">
+    <!-- Movie Cards -->
+  </div>
+
+  <script>
+    let allMovies = [];
+
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
+
+    // Load Site Info
+    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon/refs/heads/main/SiteName.json")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("site-name").innerText = data.name;
+        document.getElementById("site-logo").src = data.logo;
+      });
+
+    // Load Languages
+    fetch("https://raw.githubusercontent.com/Termux-Emon/EMovezon/refs/heads/main/language.json")
+      .then(res => res.json())
+      .then(data => {
+        const langFilter = document.getElementById("langFilter");
+        data.forEach(lang => {
+          const opt = document.createElement("option");
+          opt.value = lang;
+          opt.innerText = lang;
+          langFilter.appendChild(opt);
+        });
+      });
+
+    // Load Movies from all JSON files in GitHub folder
+    fetch("https://api.github.com/repos/Termux-Emon/EMovezon-Link/contents")
+      .then(res => res.json())
+      .then(files => {
+        const jsonFiles = files.filter(f => f.name.endsWith(".json"));
+        jsonFiles.forEach(file => {
+          fetch(file.download_url)
+            .then(res => res.json())
+            .then(data => {
+              allMovies = allMovies.concat(data);
+              renderMovies(allMovies);
+            });
+        });
+      });
+
+    function renderMovies(movies) {
+      const container = document.getElementById("movie-list");
+      container.innerHTML = "";
+
+      movies.forEach(movie => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <img src="${movie.thumbnail}" alt="${movie.name}">
+          <div class="movie-info">
+            <h3>${movie.name}</h3>
+            <div class="quality-links">
+              ${movie.qualities.map(q => `<a href="${q.url}" target="_blank">${q.quality}</a>`).join('')}
+            </div>
+            <div class="language">
+              ${movie.languages.map(lang => `<span>${lang}</span>`).join('')}
+            </div>
+            <div class="share-box">
+              <button onclick="copyLink('${movie.name}')">📤 Share</button>
+              <a class="watch-now" href="${movie.qualities[0]?.url || '#'}" target="_blank">▶ Watch Now</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterMovies() {
+      const search = document.getElementById("search").value.toLowerCase();
+      const lang = document.getElementById("langFilter").value;
+
+      const filtered = allMovies.filter(movie =>
+        movie.name.toLowerCase().includes(search) &&
+        (lang === "" || movie.languages.includes(lang))
+      );
+
+      renderMovies(filtered);
+    }
+
+    function copyLink(name) {
+      const link = `${window.location.href}?movie=${encodeURIComponent(name)}`;
+      navigator.clipboard.writeText(link);
+      alert("🔗 Copied: " + link);
+    }
+  </script>
+
+</body>
+</html>
